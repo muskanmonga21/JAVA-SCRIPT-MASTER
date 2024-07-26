@@ -64,7 +64,7 @@ const str = "Muskan";
 const letters = [...str, " ", "S."];
 console.log(letters);
 console.log(...str);
-// console.log(`${...str} s`)
+// console.log(`${...str} s`)  -wrong
 
 //Real World Example
 const ingredients = [
@@ -77,10 +77,10 @@ restaurant.orderPasta(ingredients[0], ingredients[1], ingredients[2]);
 restaurant.orderPasta(...ingredients);
 
 // Objects
-const newRestaurant = { foundedIn: 1998, ...restaurant, founder: "Joseph" };
+const newRestaurant = { foundedIn: 1996, ...restaurant, founder: "Joseph" };
 console.log(newRestaurant);
 
 const restaurantCopy = { ...restaurant };
-restaurantCopy.name = "Ristornate Roma";
+restaurantCopy.name = "Joe Restaurante";
 console.log(restaurantCopy.name);
 console.log(restaurant.name);
