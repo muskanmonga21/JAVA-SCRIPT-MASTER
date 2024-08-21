@@ -66,7 +66,7 @@ const displayMovements = function (movements, sort = false) {
 
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
   // .textcontent = 0
-  movements.forEach(function (mov, i) {
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
         <div class="movements__row">
@@ -117,20 +117,20 @@ const createUsernames = function (accs) {
 };
 createUsernames(accounts);
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR`;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
 
 // calcDisplayBalance(account1.movements);
 
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(currentAccount.movements);
+  displayMovements(acc.movements);
   // Display balance
-  calcDisplayBalance(currentAccount.movements);
+  calcDisplayBalance(acc);
   // Display summary
-  calcDisplaySummary(currentAccount);
+  calcDisplaySummary(acc);
 };
 
 //EVENT HANDLER
@@ -163,6 +163,7 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
+  console.log('working');
   const amount = Number(inputTransferAmount.value);
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
@@ -171,17 +172,18 @@ btnTransfer.addEventListener('click', function (e) {
   // console.log();
 
   inputTransferAmount.value = inputTransferTo.value = '';
-
+  // console.log(receiverAcc, currentAccount);
+  // console.log(amount);
   if (
     amount > 0 &&
     receiverAcc &&
     currentAccount.balance >= amount &&
-    receiverAcc.username !== currentAccount.username
+    receiverAcc?.username !== currentAccount.username
   ) {
     // Doing The Transfer
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
-
+    console.log('done');
     // UPDATE UI
     updateUI(currentAccount);
   }
@@ -519,3 +521,10 @@ const numDeposits1000 = accounts
   .reduce((count, cur) => (cur >= 1000 ? count++ : count), 0);
 
 console.log(numDeposits1000);
+
+//SPLICE AND SLICE DIFF.
+const array = [2, 4, 1, 6, 7, 9, 3];
+
+// console.log(array.splice(1));
+console.log(array.slice(1));
+console.log(array);
