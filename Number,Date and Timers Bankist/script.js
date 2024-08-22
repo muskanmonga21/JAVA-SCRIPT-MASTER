@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -290,3 +290,129 @@ console.log(Number.isFinite(23 / 0));
 console.log(Number.isInteger(23));
 console.log(Number.isInteger(23.0));
 console.log(Number.isInteger(23 / 0));
+
+//////////////////////////////////////////
+
+//DAY - 2
+
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2));
+console.log(18 ** (1 / 3));
+
+//Max
+console.log(Math.max(5, 13, 67, 36, 21));
+console.log(Math.max(5, 13, '67', 36, 21));
+console.log(Math.max(5, 13, '67px', 36, 21));
+
+//Min
+console.log(Math.min(5, 13, 67, 36, 21));
+console.log(Math.min('5', 13, '67', 36, 21));
+console.log(Math.min('5px', 13, '67px', 36, 21));
+
+console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+console.log(Math.trunc(Math.random() * 8) + 1);
+
+const randomInt = (min, max) =>
+  Math.trunc(Math.random() * (min = max) + 1) + min;
+
+console.log(randomInt(20, 50));
+
+//ROUNDING INTEGERS
+
+console.log(Math.trunc(23.3));
+
+console.log(Math.round(23.3));
+console.log(Math.round(23.7));
+
+console.log(Math.ceil(23.3));
+console.log(Math.ceil(23.7));
+
+console.log(Math.floor(23.9));
+console.log(Math.floor('23.9'));
+
+console.log(Math.trunc(-23.3));
+console.log(Math.floor(-23.3));
+
+// ROUNDING DECIMALS
+
+console.log((2.7).toFixed(0));
+console.log((2.7).toFixed(3));
+console.log((2.345).toFixed(2));
+console.log(+(2.345).toFixed(2));
+
+/////////////////////////////////////
+
+console.log(5 % 2);
+console.log(5 / 2);
+
+console.log(8 % 3);
+console.log(8 / 3);
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(10));
+console.log(isEven(9));
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
+
+/////////////////////////////////////
+
+//4,32,323,435,000
+
+const diameter = 4_32_323_435_000;
+console.log(diameter);
+
+const price = 54_342;
+console.log(price);
+
+const transferFee1 = 15_00;
+const transferFee2 = 1_500;
+
+console.log(transferFee1, transferFee2);
+
+const PI = 3.1415;
+console.log(PI);
+
+console.log(Number('42_000'));
+
+//////////////////////////////////////
+
+//MAX SAFE INTEGER
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 + 1);
+console.log(2 ** 53 + 2);
+console.log(2 ** 53 + 3);
+console.log(2 ** 53 + 4);
+
+console.log(7352835782932768415528629182n);
+console.log(BigInt(542858736415273));
+
+// OPERATIONS
+console.log(10000n + 10000n);
+
+const huge = 3679256835262038920n;
+const num = 36;
+console.log(huge * BigInt(num));
+
+// EXCEPTIONS
+
+console.log(20n > 15);
+console.log(20n === 20);
+console.log(typeof 20n);
+console.log(20n == '20');
+console.log(20n === '20');
+
+console.log(huge + ' is REALLY a big no.!!!');
+
+// Divisions
+console.log(11n / 3n);
+console.log(10 / 3);
+console.log(9n / 3n);
+console.log(8n / 3n);
