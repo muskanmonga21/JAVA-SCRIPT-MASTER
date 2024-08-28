@@ -243,14 +243,20 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(amount);
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-    //Add loan date
-    currentAccount.movementsDates.push(new Date().toISOString);
+      //Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-    // Update UI
-    updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
+
+      //Reset Timer
+      clearInterval(timer);
+      timer = startLogOutTimer();
+    }, 2500); //wait time for the loan to be passed
   }
   inputLoanAmount.value = '';
 });
@@ -500,4 +506,45 @@ const calcDaysPassed = (date1, date2) =>
 
 const day1 = calcDaysPassed(new Date(2024, 8, 26), new Date(2024, 8, 28));
 console.log(day1);
+*/
+
+//////////////////////////////////////////////
+/*
+//DAY - 4
+
+const no = 5271635.72;
+
+const options = {
+  style: 'currency',
+  currency: 'EUR',
+  unit: 'celsius',
+};
+
+console.log('US: ', new Intl.NumberFormat('en-US', options).format(no));
+console.log('Germany: ', new Intl.NumberFormat('de-DE', options).format(no));
+console.log('Syria: ', new Intl.NumberFormat('ar-SY', options).format(no));
+console.log(
+  'Browser: ',
+  new Intl.NumberFormat(navigator.language, options).format(no)
+);
+
+const ingredients = ['Bruchetta', 'Mushroom'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`Here is your ${ing1} and ${ing2} Pizza🍕!!`),
+  3000,
+  ...ingredients
+);
+
+console.log('Thinking.......');
+
+if (ingredients.includes('Spinach')) clearTimeout(pizzaTimer);
+
+if (ingredients.includes('Mushroom')) clearTimeout(pizzaTimer);
+
+//Set Iterval
+
+setInterval(function () {
+  const now = new Date();
+  console.log(now);
+}, 1100);
 */
