@@ -9,6 +9,10 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
 
 const openModal = function (e) {
   e.peventDefault();
@@ -75,11 +79,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 
-// Tabbed component
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
-
 // tabs.forEach(t => t.addEventListener('click', () => console.log('TAB')));
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
@@ -101,6 +100,37 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 
+// Menu Fade Animation
+const handleHover = function (e) {
+  console.log(this, e.currentTarget);
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+//Passing "Argument" into handler
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+//Sticky Navigation
+const intialCoords = section1.getBoundingClientRect();
+console.log(intialCoords);
+
+window.addEventListener('scroll', function () {
+  if (this.window.scrollY > intialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
+
+//
 ///////////////////////////////////////////////
 
 //Selecting elements
@@ -145,7 +175,7 @@ document
   });
 
 //Styles
-essage.style.backgroundColor = '#37383d';
+message.style.backgroundColor = '#37383d';
 message.style.width = '105%';
 
 console.log(message.style.color);
@@ -211,7 +241,7 @@ btnScrollTo.addEventListener('click', function (e) {
 
   section1.scrollIntoView({ behavior: 'smooth' });
 });
-
+/*
 const h1 = document.querySelector('h1');
 
 const alertH1 = function (e) {
@@ -245,7 +275,7 @@ document.querySelector('nav__link').addEventListener('click', function (e) {
   // Stop Propagation
   // e.stopPropagation();
 });
-
+*/
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
   console.log('CONTAINER', e.target, e.currentTarget);
